@@ -18,6 +18,7 @@ public class ClientControllerImpl implements ClientController {
     private ClientService clientService;
 
     @Override
+    @GetMapping("/location")
     public StationsLocation getStationsLocation() {
         log.info("Starting station collections: {}", clientService.getServiceName());
         StationsLocation stationsLocation = new StationsLocation();
