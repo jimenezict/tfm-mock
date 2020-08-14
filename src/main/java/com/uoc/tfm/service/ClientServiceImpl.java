@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import static java.lang.Math.floor;
 import static java.lang.Math.random;
 
 @Service
@@ -17,25 +18,23 @@ public class ClientServiceImpl implements ClientService {
     private String serviceName;
 
     @Override
-    public StationsLocation getStationsLocation() {
+    public StationsLocation getStationsLocation(Integer size) {
         StationsLocation stations = new StationsLocation(LocalDate.now());
-        stations.addStation(1,0,0,"Clot");
-        stations.addStation(2,0,0,"SantVi");
-        stations.addStation(3,0,0,"Alpens");
-        stations.addStation(4,0,0,"Lima");
-        stations.addStation(5,0,0,"Gracia");
+        for (int i = 1; i < size; i++) {
+            stations.addStation(i, random() * 100, random() * 100, "Lorem station");
+        }
+
         return stations;
     }
 
     @Override
-    public StationsStatus getStationStatus() {
+    public StationsStatus getStationStatus(Integer size) {
         StationsStatus stationsStatus = new StationsStatus(LocalDateTime.now());
-        stationsStatus.addStation(1, 20, (int) (random()*20));
-        stationsStatus.addStation(2, 10, (int) (random()*10));
-        stationsStatus.addStation(3, 30, (int) (random()*30));
-        stationsStatus.addStation(4, 20, (int) (random()*20));
-        stationsStatus.addStation(5, 10, (int) (random()*10));
 
+        for (int i = 1; i < size; i++) {
+            int stationSize = ((int) floor((random() * 10 + 4))) * 3;
+            stationsStatus.addStation(i, stationSize, (int) (random() * stationSize));
+        }
         return stationsStatus;
     }
 

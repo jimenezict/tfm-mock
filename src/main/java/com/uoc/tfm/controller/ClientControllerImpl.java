@@ -18,13 +18,12 @@ public class ClientControllerImpl implements ClientController {
     private ClientService clientService;
 
     @Override
-    @GetMapping("/location")
-    public StationsLocation getStationsLocation() {
-        log.info("Starting station collections: {}", clientService.getServiceName());
+    public StationsLocation getStationsLocation(String size) {
+        log.info("Starting station collections: {} with {} samples", clientService.getServiceName(), size);
         StationsLocation stationsLocation = new StationsLocation();
 
         try {
-            stationsLocation = clientService.getStationsLocation();
+            stationsLocation = clientService.getStationsLocation(Integer.valueOf(size));
         } catch(Exception e) {
             log.error("Fail on Location status collection {} due to: ", clientService.getServiceName(), e);
             return stationsLocation;
@@ -37,13 +36,12 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    @GetMapping("/status")
-    public StationsStatus getStationStatus() {
+    public StationsStatus getStationStatus(String size) {
         log.info("Starting station status collections: {}", clientService.getServiceName());
         StationsStatus stationStatus = new StationsStatus();
 
         try {
-            stationStatus = clientService.getStationStatus();
+            stationStatus = clientService.getStationStatus(Integer.valueOf(size));
         } catch(Exception e) {
             log.error("Fail on station status collection {} due to: ", clientService.getServiceName(), e);
             return stationStatus;
